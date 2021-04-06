@@ -407,6 +407,10 @@ class WysiwygEditor extends Component {
     }
   };
 
+  EmptyEditorWrapper = () => {
+    return <React.Fragment></React.Fragment>
+  }
+
   render() {
     const { editorState, editorFocused, toolbar } = this.state;
     const {
@@ -425,6 +429,8 @@ class WysiwygEditor extends Component {
       ariaLabel,
     } = this.props;
 
+    let CustomEditorWrapper = this.props.CustomEditorWrapper ? this.props.CustomEditorWrapper : this.EmptyEditorWrapper;
+    
     const controlProps = {
       modalHandler: this.modalHandler,
       editorState,
@@ -471,32 +477,34 @@ class WysiwygEditor extends Component {
               )}
           </div>
         )}
-        <div
-          ref={this.setWrapperReference}
-          className={classNames(editorClassName, 'rdw-editor-main')}
-          style={editorStyle}
-          onClick={this.focusEditor}
-          onFocus={this.onEditorFocus}
-          onBlur={this.onEditorBlur}
-          onKeyDown={KeyDownHandler.onKeyDown}
-          onMouseDown={this.onEditorMouseDown}
-        >
-          <Editor
-            ref={this.setEditorReference}
-            keyBindingFn={this.keyBindingFn}
-            editorState={editorState}
-            onChange={this.onChange}
-            blockStyleFn={blockStyleFn}
-            customStyleMap={this.getStyleMap(this.props)}
-            handleReturn={this.handleReturn}
-            handlePastedText={this.handlePastedTextFn}
-            blockRendererFn={this.blockRendererFn}
-            handleKeyCommand={this.handleKeyCommand}
-            ariaLabel={ariaLabel || 'rdw-editor'}
-            blockRenderMap={blockRenderMap}
-            {...this.editorProps}
-          />
-        </div>
+        <CustomEditorWrapper>
+          <div
+            ref={this.setWrapperReference}
+            className={classNames(editorClassName, 'rdw-editor-main')}
+            style={editorStyle}
+            onClick={this.focusEditor}
+            onFocus={this.onEditorFocus}
+            onBlur={this.onEditorBlur}
+            onKeyDown={KeyDownHandler.onKeyDown}
+            onMouseDown={this.onEditorMouseDown}
+          >
+            <Editor
+              ref={this.setEditorReference}
+              keyBindingFn={this.keyBindingFn}
+              editorState={editorState}
+              onChange={this.onChange}
+              blockStyleFn={blockStyleFn}
+              customStyleMap={this.getStyleMap(this.props)}
+              handleReturn={this.handleReturn}
+              handlePastedText={this.handlePastedTextFn}
+              blockRendererFn={this.blockRendererFn}
+              handleKeyCommand={this.handleKeyCommand}
+              ariaLabel={ariaLabel || 'rdw-editor'}
+              blockRenderMap={blockRenderMap}
+              {...this.editorProps}
+            />
+          </div>
+        </CustomEditorWrapper>
       </div>
     );
   }
