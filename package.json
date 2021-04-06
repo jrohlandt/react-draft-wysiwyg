@@ -1,11 +1,11 @@
 {
-  "name": "react-draft-wysiwyg",
+  "name": "@jrohlandt/react-draft-wysiwyg",
   "version": "1.14.5",
   "description": "A wysiwyg on top of DraftJS.",
   "main": "dist/react-draft-wysiwyg.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jpuri/react-draft-wysiwyg.git"
+    "url": "https://github.com/jrohlandt/react-draft-wysiwyg.git"
   },
   "author": "Jyoti Puri",
   "devDependencies": {
