@@ -407,8 +407,8 @@ class WysiwygEditor extends Component {
     }
   };
 
-  EmptyEditorWrapper = () => {
-    return <React.Fragment></React.Fragment>
+  EmptyEditorWrapper = ({children}) => {
+    return <React.Fragment>{children}</React.Fragment>
   }
 
   render() {
