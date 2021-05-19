@@ -21,6 +21,7 @@ export default class LayoutComponent extends Component {
 
   state: Object = {
     defaultFontSize: undefined,
+    inputFontSize: 16,
   };
 
   componentDidMount(): void {
@@ -29,8 +30,18 @@ export default class LayoutComponent extends Component {
       const editorStyles = window.getComputedStyle(editorElm[0]);
       let defaultFontSize = editorStyles.getPropertyValue('font-size');
       defaultFontSize = defaultFontSize.substring(0, defaultFontSize.length - 2);
+      
       this.setState({ // eslint-disable-line react/no-did-mount-set-state
         defaultFontSize,
+        inputFontSize: this.props.currentState.fontSize || (this.props.config.options && this.props.config.options.indexOf(Number(defaultFontSize)) >= 0 && defaultFontSize)
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {    
+    if (prevProps.currentState.fontSize !== this.props.currentState.fontSize) {
+      this.setState({
+        inputFontSize: this.props.currentState.fontSize
       });
     }
   }
@@ -45,11 +56,11 @@ export default class LayoutComponent extends Component {
       doExpand,
       translations,
     } = this.props;
+
     let { currentState: { fontSize: currentFontSize } } = this.props;
-    let { defaultFontSize } = this.state;
-    defaultFontSize = Number(defaultFontSize);
-    currentFontSize = currentFontSize ||
-      (options && options.indexOf(defaultFontSize) >= 0 && defaultFontSize);
+    let defaultFontSize = Number(this.state.defaultFontSize);
+    currentFontSize = currentFontSize || (options && options.indexOf(defaultFontSize) >= 0 && defaultFontSize);
+
     return (
       <div className="rdw-fontsize-wrapper" aria-label="rdw-font-size-control">
         <Dropdown
@@ -62,9 +73,20 @@ export default class LayoutComponent extends Component {
           onExpandEvent={onExpandEvent}
           title={title || translations['components.controls.fontsize.fontsize']}
         >
-          {currentFontSize ?
-            <span>{currentFontSize}</span> :
-            <img src={icon} alt="" />
+          {currentFontSize 
+            ? <input 
+                onClick={(e) => {e.stopPropagation();}} // prevent dropdown from expanding
+                onKeyUp={(e) => {
+                  if (e.key === 'Enter') {
+                    this.props.onChange(e.target.value);
+                    doCollapse();
+                  }
+                }}
+                onChange={(e) => { this.setState({inputFontSize: e.target.value})}}
+                type="text" 
+                value={this.state.inputFontSize} 
+              />                      
+            : <img src={icon} alt="" />
           }
           {
             options.map((size, index) =>
@@ -74,7 +96,7 @@ export default class LayoutComponent extends Component {
                 value={size}
                 key={index}
               >
-                {size} JR
+                {size}
               </DropdownOption>),
             )
           }

@@ -1,12 +1,15 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { EditorState } from 'draft-js';
+import { EditorState, ContentState } from 'draft-js';
 import { Editor } from '../../src';
 
+const text = "Some text.";
 class BasicControlled extends Component {
   state = {
-    editorState: EditorState.createEmpty(),
+    // editorState: EditorState.createEmpty(),
+    editorState: EditorState.createWithContent(ContentState.createFromText(text)),
+
   };
 
   onEditorStateChange: Function = editorState => {
