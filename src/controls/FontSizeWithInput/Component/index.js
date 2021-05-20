@@ -19,10 +19,20 @@ export default class LayoutComponent extends Component {
     translations: PropTypes.object,
   };
 
-  state: Object = {
-    defaultFontSize: undefined,
-    inputFontSize: 16,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      defaultFontSize: undefined,
+      inputFontSize: 16,
+    };
+  
+    this.getCurrentFontSize = this.getCurrentFontSize.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
   componentDidMount(): void {
     const editorElm = document.getElementsByClassName('DraftEditor-root');
@@ -33,17 +43,40 @@ export default class LayoutComponent extends Component {
       
       this.setState({ // eslint-disable-line react/no-did-mount-set-state
         defaultFontSize,
-        inputFontSize: this.props.currentState.fontSize || (this.props.config.options && this.props.config.options.indexOf(Number(defaultFontSize)) >= 0 && defaultFontSize)
+        inputFontSize: this.getCurrentFontSize(defaultFontSize),
       });
     }
   }
 
+  
   componentDidUpdate(prevProps) {    
-    if (prevProps.currentState.fontSize !== this.props.currentState.fontSize) {
-      this.setState({
-        inputFontSize: this.props.currentState.fontSize
-      });
-    }
+    if (prevProps.currentState.fontSize === this.props.currentState.fontSize) return;
+    this.setState({ inputFontSize: this.getCurrentFontSize() }); 
+  }
+  
+  getCurrentFontSize(defaultFontSize="") {
+    const defaultFS = defaultFontSize ? defaultFontSize : this.state.defaultFontSize;
+    const {currentState: {fontSize}, config: {options}} = this.props;
+  
+    return fontSize || (options && options.indexOf(Number(defaultFS)) >= 0 && defaultFS);
+  }
+
+  handleSubmit(e) {
+    if (!e.target.value) return;
+    this.props.onChange(e.target.value);
+  }
+
+  handleBlur(e) {
+    this.handleSubmit(e);
+  }
+
+  handleChange(e) {
+    this.setState({inputFontSize: e.target.value});
+  }
+
+  handleKeyUp(e) {
+    if (e.key !== 'Enter') return;
+    this.handleSubmit(e);
   }
 
   render() {
@@ -57,9 +90,7 @@ export default class LayoutComponent extends Component {
       translations,
     } = this.props;
 
-    let { currentState: { fontSize: currentFontSize } } = this.props;
-    let defaultFontSize = Number(this.state.defaultFontSize);
-    currentFontSize = currentFontSize || (options && options.indexOf(defaultFontSize) >= 0 && defaultFontSize);
+    const currentFontSize = this.getCurrentFontSize();
 
     return (
       <div className="rdw-fontsize-wrapper" aria-label="rdw-font-size-control">
@@ -73,20 +104,17 @@ export default class LayoutComponent extends Component {
           onExpandEvent={onExpandEvent}
           title={title || translations['components.controls.fontsize.fontsize']}
         >
-          {currentFontSize 
-            ? <input 
-                onClick={(e) => {e.stopPropagation();}} // prevent dropdown from expanding
-                onKeyUp={(e) => {
-                  if (e.key === 'Enter') {
-                    this.props.onChange(e.target.value);
-                    doCollapse();
-                  }
-                }}
-                onChange={(e) => { this.setState({inputFontSize: e.target.value})}}
-                type="text" 
-                value={this.state.inputFontSize} 
-              />                      
-            : <img src={icon} alt="" />
+          {
+            !currentFontSize
+              ? <img src={icon} alt="" />
+              : <input 
+                  onClick={(e) => {e.stopPropagation();}} // prevent dropdown from expanding
+                  onBlur={this.handleBlur}
+                  onKeyUp={this.handleKeyUp}
+                  onChange={this.handleChange}
+                  type="text" 
+                  value={this.state.inputFontSize} 
+                />
           }
           {
             options.map((size, index) =>
