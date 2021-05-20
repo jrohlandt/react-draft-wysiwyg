@@ -34,7 +34,7 @@ export default class LayoutComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount(): void {
+  componentDidMount() {
     const editorElm = document.getElementsByClassName('DraftEditor-root');
     if (editorElm && editorElm.length > 0) {
       const editorStyles = window.getComputedStyle(editorElm[0]);
@@ -108,6 +108,7 @@ export default class LayoutComponent extends Component {
             !currentFontSize
               ? <img src={icon} alt="" />
               : <input 
+                  style={{width: '50px', border: 'none', outline: 'none'}}
                   onClick={(e) => {e.stopPropagation();}} // prevent dropdown from expanding
                   onBlur={this.handleBlur}
                   onKeyUp={this.handleKeyUp}
