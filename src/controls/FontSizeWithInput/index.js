@@ -90,6 +90,7 @@ export default class FontSize extends Component {
         onExpandEvent={this.onExpandEvent}
         doExpand={this.doExpand}
         doCollapse={this.doCollapse}
+        onSpecialFocus={this.props.onSpecialFocus}
       />
     );
   }

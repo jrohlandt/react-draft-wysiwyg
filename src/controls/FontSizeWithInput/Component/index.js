@@ -88,6 +88,7 @@ export default class LayoutComponent extends Component {
       onExpandEvent,
       doExpand,
       translations,
+      onSpecialFocus,
     } = this.props;
 
     const currentFontSize = this.getCurrentFontSize();
@@ -110,6 +111,7 @@ export default class LayoutComponent extends Component {
               : <input 
                   style={{width: '50px', border: 'none', outline: 'none'}}
                   onClick={(e) => {e.stopPropagation();}} // prevent dropdown from expanding
+                  onFocus={(e) => { onSpecialFocus('FontSizeWithInput'); }}
                   onBlur={this.handleBlur}
                   onKeyUp={this.handleKeyUp}
                   onChange={this.handleChange}

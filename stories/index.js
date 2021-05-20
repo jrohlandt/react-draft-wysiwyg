@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Basic from './Basic';
 import BasicControlled from './BasicControlled';
+import BasicControlledCustomWrapper from './BasicControlledCustomWrapper';
 import BasicContentState from './BasicContentState';
 import ReadOnly from './ReadOnly';
 import SpellCheck from './SpellCheck';
@@ -27,6 +28,7 @@ import './styles.css';
 
 storiesOf('Basic - uncontrolled', module).add('story', () => <Basic />);
 storiesOf('Basic - controlled', module).add('story', () => <BasicControlled />);
+storiesOf('Basic - controlled custom wrapper', module).add('story', () => <BasicControlledCustomWrapper />);
 storiesOf('Basic - content state', module).add('story', () => <BasicContentState />);
 storiesOf('ReadOnly', module).add('story', () => <ReadOnly />);
 storiesOf('SpellCheck', module).add('story', () => <SpellCheck />);

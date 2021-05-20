@@ -427,6 +427,7 @@ class WysiwygEditor extends Component {
       wrapperStyle,
       uploadCallback,
       ariaLabel,
+      onSpecialFocus,
     } = this.props;
 
     let CustomEditorWrapper = this.props.CustomEditorWrapper ? this.props.CustomEditorWrapper : this.EmptyEditorWrapper;
@@ -439,6 +440,7 @@ class WysiwygEditor extends Component {
         ...localeTranslations[locale || newLocale],
         ...translations,
       },
+      onSpecialFocus,
     };
     const toolbarShow =
       editorFocused || this.focusHandler.isInputFocused() || !toolbarOnFocus;
@@ -536,6 +538,7 @@ WysiwygEditor.propTypes = {
   wrapperStyle: PropTypes.object,
   uploadCallback: PropTypes.func,
   onFocus: PropTypes.func,
+  onSpecialFocus: PropTypes.func,
   onBlur: PropTypes.func,
   onTab: PropTypes.func,
   mention: PropTypes.object,
@@ -564,6 +567,7 @@ WysiwygEditor.defaultProps = {
   stripPastedStyles: false,
   localization: { locale: 'en', translations: {} },
   customDecorators: [],
+  onSpecialFocus: function() { console.log('default special focus'); }
 };
 
 export default WysiwygEditor;
