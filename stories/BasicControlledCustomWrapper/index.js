@@ -39,9 +39,6 @@ class BasicControlledCustomWrapper extends Component {
           wrapperClassName="rdw-storybook-wrapper"
           editorClassName="rdw-storybook-editor"
           onEditorStateChange={this.onEditorStateChange}
-          onSpecialFocus={(name) => {
-            console.log(`SpecialFocus: ${name}`);
-          }}
           toolbar={{
             inline: { inDropdown: true },
             list: { inDropdown: true },

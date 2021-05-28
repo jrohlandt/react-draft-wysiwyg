@@ -1,7 +1,6 @@
 import inline from "./Inline";
 import blockType from "./BlockType";
 import fontSize from "./FontSize";
-import fontSizeWithInput from './FontSizeWithInput'
 import fontFamily from "./FontFamily";
 import list from "./List";
 import textAlign from "./TextAlign";
@@ -17,7 +16,6 @@ export default {
   inline,
   blockType,
   fontSize,
-  fontSizeWithInput,
   fontFamily,
   list,
   textAlign,
