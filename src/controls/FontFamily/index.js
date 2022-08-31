@@ -75,6 +75,9 @@ export default class FontFamily extends Component {
       fontFamily
     );
     if (newState) {
+      if (this.props.config.onFontFamilyChanged) {
+        this.props.config.onFontFamilyChanged(fontFamily);
+      }
       onChange(newState);
     }
   };

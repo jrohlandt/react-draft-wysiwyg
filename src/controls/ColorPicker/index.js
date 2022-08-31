@@ -87,6 +87,9 @@ class ColorPicker extends Component {
     const newState = toggleCustomInlineStyle(editorState, style, color);
     if (newState) {
       onChange(newState);
+      if (this.props.config.onColorPickerChanged) {
+        this.props.config.onColorPickerChanged(style, color);
+      }
     }
     this.doCollapse();
   };

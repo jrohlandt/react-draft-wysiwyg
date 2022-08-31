@@ -69,6 +69,10 @@ export default class TextAlign extends Component {
     } else {
       onChange(setBlockData(editorState, { 'text-align': undefined }));
     }
+    if (this.props.config.onTextAlignChanged) {
+      this.props.config.onTextAlignChanged(value); // Always pass the value. Never undefined.
+    }
+
   };
 
   render() {

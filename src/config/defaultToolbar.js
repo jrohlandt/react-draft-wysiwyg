@@ -68,7 +68,8 @@ export default {
     },
     monospace: { icon: monospace, className: undefined, title: undefined },
     superscript: { icon: superscript, className: undefined, title: undefined },
-    subscript: { icon: subscript, className: undefined, title: undefined }
+    subscript: { icon: subscript, className: undefined, title: undefined },
+    onInlineChanged: undefined,
   },
   blockType: {
     inDropdown: true,
@@ -94,7 +95,8 @@ export default {
     className: undefined,
     component: undefined,
     dropdownClassName: undefined,
-    title: undefined
+    title: undefined,
+    onFontSizeChanged: undefined,
   },
   fontFamily: {
     options: [
@@ -108,7 +110,8 @@ export default {
     className: undefined,
     component: undefined,
     dropdownClassName: undefined,
-    title: undefined
+    title: undefined,
+    onFontFamilyChanged: undefined,
   },
   list: {
     inDropdown: false,
@@ -132,7 +135,8 @@ export default {
     center: { icon: center, className: undefined, title: undefined },
     right: { icon: right, className: undefined, title: undefined },
     justify: { icon: justify, className: undefined, title: undefined },
-    title: undefined
+    title: undefined,
+    onTextAlignChanged: undefined,
   },
   colorPicker: {
     icon: color,
@@ -168,7 +172,8 @@ export default {
       "rgb(124,112,107)",
       "rgb(209,213,216)"
     ],
-    title: undefined
+    title: undefined,
+    onColorPickerChanged: undefined,
   },
   link: {
     inDropdown: false,

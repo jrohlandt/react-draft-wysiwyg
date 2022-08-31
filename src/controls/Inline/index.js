@@ -70,6 +70,9 @@ export default class Inline extends Component {
     }
     if (newState) {
       onChange(newState);
+      if (this.props.config.onInlineChanged) {
+        this.props.config.onInlineChanged(style);
+      }
     }
   };
 

@@ -72,6 +72,9 @@ export default class FontSize extends Component {
     const newState = toggleCustomInlineStyle(editorState, 'fontSize', fontSize);
     if (newState) {
       onChange(newState);
+      if (this.props.config.onFontSizeChanged) {
+        this.props.config.onFontSizeChanged(fontSize);
+      }
     }
   };
 

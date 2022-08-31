@@ -42,9 +42,52 @@ class BasicControlledCustomWrapper extends Component {
           toolbar={{
             inline: { inDropdown: true },
             list: { inDropdown: true },
-            textAlign: { inDropdown: true },
+            textAlign: { inDropdown: false, onTextAlignChanged: (style) => console.log('onTextAlignChanged', style) },
             link: { inDropdown: true },
             history: { inDropdown: true },
+            fontFamily: {
+              options: ['Ubuntu', 'Arial'],
+              className: undefined,
+              component: undefined,
+              dropdownClassName: undefined,
+              justatest: 'just a test value',
+              onFontFamilyChanged: (newFont) => { console.log('onFontFamilyChanged', newFont); }
+            },
+            fontSize: {
+              className: undefined,
+              component: undefined,
+              dropdownClassName: undefined,
+              onFontSizeChanged: (fontSize) => { console.log('onFontSizeChanged', fontSize); }
+            },
+            inline: {
+              inDropdown: false,
+              className: undefined,
+              component: undefined,
+              dropdownClassName: undefined,
+              options: [
+                "bold",
+                "italic",
+                "underline",
+                "strikethrough",
+                // "monospace",
+                // "superscript",
+                // "subscript",
+              ],
+              // bold: { icon: bold, className: undefined },
+              // italic: { icon: italic, className: undefined },
+              // underline: { icon: underline, className: undefined },
+              // strikethrough: { icon: strikethrough, className: undefined },
+              // monospace: { icon: monospace, className: undefined },
+              // superscript: { icon: superscript, className: undefined },
+              // subscript: { icon: subscript, className: undefined },
+              onInlineChanged: (val) => {
+                console.log('onInlineChanged', val);
+              },
+            },
+            colorPicker: { 
+              component: undefined, 
+              onColorPickerChanged: (style, color) => {console.log('onColorPickerChanged', style, color); }
+            },
           }}
         />
       </div>
